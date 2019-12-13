@@ -65,7 +65,7 @@ export default function xhr(config:AxiosRequestConfig):AxiosPromise {
         reject(createError(
           `Request failed with status code${response.status}`,
           config,
-          null,
+          response.status,
           request,
           response
         ));

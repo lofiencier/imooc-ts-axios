@@ -2,7 +2,7 @@
  * @Author: Envy
  * @Date: 2019-12-04 16:09:15
  * @LastEditors: Envy
- * @LastEditTime: 2019-12-11 10:03:03
+ * @LastEditTime: 2019-12-12 17:08:24
  * @Description: Do no edit
  */
 import axios,{ AxiosError } from '../../src/index';
@@ -55,3 +55,17 @@ axios({
   console.log('e.message :', e.message);
   console.log('e.code :', e.code);
 })
+
+axios.get('/get/params',{ params:{
+  data:[1,3,4,5],
+    log:true,
+    before:{
+      a:1,
+      b:2
+    }
+}}).then(res=>console.log('.get :', res));
+
+axios.post('/base/post',{
+  a:3,
+  b:4
+}).then(res=>console.log('.post',res));
