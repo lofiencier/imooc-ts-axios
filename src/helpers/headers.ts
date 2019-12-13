@@ -2,10 +2,11 @@
  * @Author: Envy
  * @Date: 2019-12-05 17:37:14
  * @LastEditors: Envy
- * @LastEditTime: 2019-12-10 17:24:31
+ * @LastEditTime: 2019-12-13 16:20:57
  * @Description: Do no edit
  */
-import { isPlainObject } from './utils';
+import { isPlainObject, deepMerge } from './utils';
+import { Method } from '../types';
 
 function normalizeHeaderName(headers:any,normalizedName:string):void{
   if(!headers) return;
@@ -36,5 +37,19 @@ export function processHeaders(headers:any,data:any):any{
       headers['Content-Type'] = 'application/json;charset=utf-8'
     }
   }
+  return headers;
+}
+
+export function flattenHeaders(headers: any, method: Method): any{
+  if(!headers) {
+    return headers
+  }
+  headers = deepMerge(headers.common || {}, headers[method] || {}, headers);
+  
+  const methodsToDelete = ['delete', 'get', 'head', 'options', 'pust', 'patch','common'];
+
+  methodsToDelete.forEach(method => {
+    delete headers[method];
+  })
   return headers;
 }

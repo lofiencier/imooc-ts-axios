@@ -2,7 +2,7 @@
  * @Author: Envy
  * @Date: 2019-12-11 10:09:03
  * @LastEditors: Envy
- * @LastEditTime: 2019-12-13 15:20:45
+ * @LastEditTime: 2019-12-13 16:15:49
  * @Description: Do no edit
  */
 import { AxiosPromise, AxiosRequestConfig, AxiosResponse, Method, ResolvedFn, RejectedFn } from '../types'
@@ -12,6 +12,7 @@ import { transformRequest, transformResponse } from '../helpers/data'
 import { processHeaders } from '../helpers/headers'
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from './InterceptorManager'
+import mergeConfig from './mergeConfig'
 
 interface Interceptors {
   request: InterceptorManager<AxiosRequestConfig>
@@ -35,6 +36,9 @@ export default class Axios{
     this.defaults = initConfig;
   }
   request(url:any, config?:any):AxiosPromise{
+    
+    config = mergeConfig(this.defaults, config);
+
     if(typeof url === 'string'){
       if(!config) config = {}
       config = {}

@@ -2,7 +2,7 @@
  * @Author: Envy
  * @Date: 2019-12-04 15:31:03
  * @LastEditors: Envy
- * @LastEditTime: 2019-12-13 15:35:46
+ * @LastEditTime: 2019-12-13 16:44:08
  * @Description: Do no edit
  */
 export interface Axios{
@@ -50,12 +50,19 @@ export interface AxiosRequestConfig<T = any>{
   url?: string
   method?: Method
   data?: T
-  params?: any,
-  headers?:any,
-  responseType?:XMLHttpRequestResponseType,
-  timeout?:number,
+  params?: any
+  headers?:any
+  responseType?:XMLHttpRequestResponseType
+  timeout?:number
   [propName: string]: any
+  transformRequest?: AxiosTransformer | AxiosTransformer[]
+  TransformResponse?: AxiosTransformer | AxiosTransformer[]
 }
+
+export interface AxiosTransformer{
+  (data: any, headers?: any): any
+}
+
 export type Method ='get'
 | 'GET'
 | 'post'
